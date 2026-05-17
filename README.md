@@ -3,7 +3,7 @@
 ## config
 sudo unzip php*
 
-sudo \cp -r usr/ /
+sudo \cp -r usr/* /
 
 ## openssl
 ll /usr/local/openssl/openssl-1.1.1i/bin/lib/pkgconfig
