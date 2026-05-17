@@ -1,1 +1,39 @@
 # php-binaries
+
+#config
+sudo unzip php*
+sudo \cp -r usr/ /
+
+#openssl
+ll /usr/local/openssl/openssl-1.1.1i/bin/lib/pkgconfig
+echo "/usr/local/openssl/openssl-1.1.1i/bin/lib" | sudo tee /etc/ld.so.conf.d/openssl-1.1.1i.conf
+sudo ldconfig -v | grep libssl #openssl
+
+#instal openssl for support php7.*
+yum install perl perl-FindBin
+
+wget https://www.openssl.org/source/openssl-1.1.1i.tar.gz
+tar xzf openssl-1.1.1i.tar.gz
+cd openssl-1.1.1i  
+./Configure --prefix=/usr/local/openssl/openssl-1.1.1i/bin -fPIC -shared linux-x86_64
+make -j 8 
+make install
+export PKG_CONFIG_PATH=/usr/local/openssl/openssl-1.1.1i/bin/lib/pkgconfig
+
+#---------------error while loading shared libraries: #libssl.so.1.1: cannot open shared object file: No such file or directory------
+ln -s /usr/local/openssl/openssl-1.1.1i/bin/lib/libssl.so.1.1 /usr/lib64/
+ln -s /usr/local/openssl/openssl-1.1.1i/bin/lib/libcrypto.so.1.1 /usr/lib64/
+--------------
+
+ll /usr/local/openssl/openssl-1.1.1i/bin/lib/pkgconfig
+echo "/usr/local/openssl/openssl-1.1.1i/bin/lib" | sudo tee /etc/ld.so.conf.d/openssl-1.1.1i.conf
+sudo ldconfig -v | grep libssl #openssl
+
+#test
+ls /usr/local/php
+php7.1/ php7.4/ php8.1/ php8.5/
+
+#version
+/usr/local/php7.1/bin/php -version
+
+
